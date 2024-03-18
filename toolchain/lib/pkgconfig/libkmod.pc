@@ -1,0 +1,11 @@
+prefix=/home/shen/git_rep/buildroot-2021.11.x/output/host
+exec_prefix=/home/shen/git_rep/buildroot-2021.11.x/output/host
+libdir=/home/shen/git_rep/buildroot-2021.11.x/output/host/lib
+includedir=/home/shen/git_rep/buildroot-2021.11.x/output/host/include
+
+Name: libkmod
+Description: Library to deal with kernel modules
+Version: 29
+Libs: -L${libdir} -lkmod
+Libs.private:   
+Cflags: -I${includedir}
