@@ -49,6 +49,7 @@
 *.zst
 Module.symvers
 modules.order
+*.map
 
 #
 # Top-level generic files
