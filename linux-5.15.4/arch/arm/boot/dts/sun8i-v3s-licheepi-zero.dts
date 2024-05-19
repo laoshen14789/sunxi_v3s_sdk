@@ -77,6 +77,33 @@
 			gpios = <&pio 6 2 GPIO_ACTIVE_LOW>; /* PG2 */
 		};
 	};
+
+    lcd-backlight {
+        compatible = "backlight", "gpio-backlight";
+        gpios = <&pio 1 2 GPIO_ACTIVE_HIGH>;
+        default-on;
+        status = "okay";
+    };
+
+	panel: panel {
+		#address-cells = <1>;
+		#size-cells = <0>;
+        compatible = "armadeus,st0700-adapt", "simple-panel";
+        power-supply = <&reg_vcc3v3>;
+
+
+		port@0 {
+			reg = <0>;
+			// backlight = <&backlight>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			panel_input: endpoint@0 {
+				reg = <0>;
+				remote-endpoint = <&tcon0_out_lcd>;
+			};
+		};
+	};
 };
 
 &mmc0 {
@@ -168,4 +195,36 @@
 		"MIC1", "Mic",
 		"Mic",  "HBIAS";
 	status = "okay";
+};
+
+// &lcd_backlight {
+//     compatible = "gpio-backlight";
+//     default-on;
+//     status = "okay";
+//     // pinctrl-names = "default";
+//     // pinctrl-0 = <&panel_backlight_pins>;
+//     gpios = <&pio 4 2 GPIO_ACTIVE_HIGH>; /* PB2 */
+// };
+
+&de {
+	status = "okay";
+};
+
+// &pwm {
+// 	pinctrl-names = "default";
+// 	pinctrl-0 = <&pwm0_pins>;
+// 	status = "okay";
+// };
+
+&tcon0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&lcd_rgb_666_pins>;
+	status = "okay";
+};
+
+&tcon0_out {
+	tcon0_out_lcd: endpoint@0 {
+		reg = <0>;
+		remote-endpoint = <&panel_input>;
+	};
 };

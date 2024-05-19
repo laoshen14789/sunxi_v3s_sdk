@@ -796,7 +796,11 @@ static int panel_simple_probe(struct device *dev, const struct panel_desc *desc,
 
 	err = drm_panel_of_backlight(&panel->base);
 	if (err)
-		goto disable_pm_runtime;
+    {
+        dev_warn(dev, "drm_panel_dp_aux_backlight\n");
+        goto disable_pm_runtime;
+    }
+		
 
 	if (!panel->base.backlight && panel->aux) {
 		pm_runtime_get_sync(dev);
@@ -804,9 +808,13 @@ static int panel_simple_probe(struct device *dev, const struct panel_desc *desc,
 		pm_runtime_mark_last_busy(dev);
 		pm_runtime_put_autosuspend(dev);
 		if (err)
-			goto disable_pm_runtime;
+        {
+            dev_warn(dev, "drm_panel_dp_aux_backlight\n");
+            goto disable_pm_runtime;
+        }
+			
 	}
-
+    dev_warn(dev, "drm_panel_add\n");
 	drm_panel_add(&panel->base);
 
 	return 0;

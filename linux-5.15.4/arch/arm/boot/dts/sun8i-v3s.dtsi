@@ -416,6 +416,20 @@
 				pins = "PC0", "PC1", "PC2", "PC3";
 				function = "spi0";
 			};
+
+			lcd_rgb_666_pins: lcd-rgb666-pins {
+				pins = "PE4", "PE5", "PE6", "PE7","PE8", "PE9",
+                        "PE10", "PE11", "PE12", "PE13","PE14", "PE15",
+                        "PE16", "PE17", "PE18", "PE19","PE23", "PE24",
+                        "PE0", "PE1", "PE2", "PE3";
+				function = "lcd";
+			};
+
+            panel_backlight_pins: panel-backlight-pins {
+                    pins = "PB2";
+                    function = "lcd-backlight";
+
+            };
 		};
 
 		timer@1c20c00 {
