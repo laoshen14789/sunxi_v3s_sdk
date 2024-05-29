@@ -8,9 +8,13 @@ uboot_src=$rootdir/uboot-2021.10
 kernel_src=$rootdir/linux-5.15.4
 buildroot=$rootdir/buildroot
 
+if [ ! -d $rootdir/output ];then
+    mkdir $rootdir/output
+fi
+
 usage () {
     echo "eg:"
-    echo "./build.sh u-boot -j4"
+    echo "./build.sh uboot -j4"
     echo "./build.sh kernel -j4"
     echo "./build.sh rootfs -j4"
     echo "./build.sh clean"
@@ -24,6 +28,7 @@ build_uboot () {
     make ARCH=arm CROSS_COMPILE=$toolchain/arm-linux- $arg1
     echo "exit $uboot_src"
     cd $rootdir
+    cp uboot-2021.10/u-boot-sunxi-with-spl.bin ./output/
 
 }
 
@@ -36,6 +41,7 @@ build_kernel () {
     make ARCH=arm  CROSS_COMPILE=$toolchain/arm-linux- dtbs
     echo "exit $kernel_src"
     cd $rootdir
+    cp linux-5.15.4/arch/arm/boot/zImage ./output/
 
 }
 

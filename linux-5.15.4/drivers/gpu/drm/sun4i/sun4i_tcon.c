@@ -1530,7 +1530,7 @@ static const struct sun4i_tcon_quirks sun8i_r40_tv_quirks = {
 
 static const struct sun4i_tcon_quirks sun8i_v3s_quirks = {
 	.has_channel_0		= true,
-	.dclk_min_div		= 6,
+	.dclk_min_div		= 1,
 };
 
 static const struct sun4i_tcon_quirks sun9i_a80_tcon_lcd_quirks = {
