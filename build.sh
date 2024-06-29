@@ -42,6 +42,7 @@ build_kernel () {
     echo "exit $kernel_src"
     cd $rootdir
     cp linux-5.15.4/arch/arm/boot/zImage ./output/
+    cp linux-5.15.4/arch/arm/boot/dts/sun8i-v3s-licheepi-zero.dtb ./output/
 
 }
 
