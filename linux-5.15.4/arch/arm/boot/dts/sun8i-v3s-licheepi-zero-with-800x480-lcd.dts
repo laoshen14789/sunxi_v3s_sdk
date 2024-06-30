@@ -7,5 +7,5 @@
  #include "sun8i-v3s-licheepi-zero-with-lcd.dtsi"
 
  &panel {
-	compatible = "urt,umsh-8596md-t", "simple-panel";
+	compatible = "armadeus,st0700-adapt", "panel-simple";
 };

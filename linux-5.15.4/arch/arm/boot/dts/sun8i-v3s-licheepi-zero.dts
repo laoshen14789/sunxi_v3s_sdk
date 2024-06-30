@@ -88,7 +88,7 @@
 	panel: panel {
 		#address-cells = <1>;
 		#size-cells = <0>;
-        compatible = "armadeus,st0700-adapt", "simple-panel";
+        compatible = "armadeus,st0700-adapt", "panel-simple";
         power-supply = <&reg_vcc3v3>;
 
 
@@ -226,5 +226,14 @@
 	tcon0_out_lcd: endpoint@0 {
 		reg = <0>;
 		remote-endpoint = <&panel_input>;
+	};
+};
+
+&i2c0 {
+    status = "okay";
+	tsc2007@48 {
+		compatible = "ti,tsc2007";
+		reg = <0x48>;
+		ti,x-plate-ohms = <450>;
 	};
 };
