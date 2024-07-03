@@ -1,0 +1,1 @@
+ARCH=arm CROSS_COMPILE=arm-buildroot-linux-gnueabi- make -C ../../linux-5.15.4  M=${PWD}  modules
