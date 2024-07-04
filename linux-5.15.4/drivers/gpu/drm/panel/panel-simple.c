@@ -929,11 +929,11 @@ static const struct panel_desc ampire_am800480r3tmqwa1h = {
 
 static const struct display_timing santek_st0700i5y_rbslw_f_timing = {
 	.pixelclock = { 23000000, 25000000, 27000000 },
-	.hactive = { 808, 816, 848 },
+	.hactive = { 808, 800, 848 },
 	.hfront_porch = { 4, 8, 24 },
 	.hback_porch = { 4, 8, 24 },
 	.hsync_len = { 2, 4, 8 },
-	.vactive = { 496, 512, 528 },
+	.vactive = { 496, 480, 528 },
 	.vfront_porch = { 8, 16, 24 },
 	.vback_porch = { 8, 16, 24 },
 	.vsync_len = { 2, 4, 8 },
