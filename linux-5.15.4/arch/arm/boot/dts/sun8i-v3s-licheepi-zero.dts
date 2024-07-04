@@ -43,6 +43,7 @@
 /dts-v1/;
 #include "sun8i-v3s.dtsi"
 #include "sunxi-common-regulators.dtsi"
+#include <dt-bindings/input/linux-event-codes.h>
 
 / {
 	model = "Lichee Pi Zero";
@@ -240,5 +241,30 @@
 		pendown-gpio = <&pio 1 5 GPIO_ACTIVE_LOW>;
 		ti,x-plate-ohms = <450>;
 		wakeup-source;
+	};
+};
+
+&lradc {
+	status = "okay";
+	compatible = "allwinner,sun8i-a83t-r-lradc";
+	keyStart@0 {
+		channel = <0>;
+		voltage = <750>; // 750 550 350 150
+		linux,code = <KEY_1>;
+	};
+	keySel@1 {
+		channel = <0>;
+		voltage = <550>; //550 350 150
+		linux,code = <KEY_2>;
+	};
+	keyPlus@2 {
+		channel = <0>;
+		voltage = <350>; //550 350 150
+		linux,code = <KEY_3>;
+	};
+	keySub@3 {
+		channel = <0>;
+		voltage = <150>; //550 350 150
+		linux,code = <KEY_4>;
 	};
 };
