@@ -65,8 +65,8 @@ struct lradc_variant {
 };
 
 static const struct lradc_variant lradc_variant_a10 = {
-	.divisor_numerator = 2,
-	.divisor_denominator = 3
+	.divisor_numerator = 3,
+	.divisor_denominator = 4
 };
 
 static const struct lradc_variant r_lradc_variant_a83t = {
@@ -111,7 +111,7 @@ static irqreturn_t sun4i_lradc_irq(int irq, void *dev_id)
 	if ((ints & CHAN0_KEYDOWN_IRQ) && lradc->chan0_keycode == 0) {
 		val = readl(lradc->base + LRADC_DATA0) & 0x3f;
 		voltage = val * lradc->vref / 63;
-
+		dev_err(lradc->dev, "val:%d lradc->vref:%d voltage:%d\n", val, lradc->vref, voltage);
 		for (i = 0; i < lradc->chan0_map_count; i++) {
 			diff = abs(lradc->chan0_map[i].voltage - voltage);
 			if (diff < closest) {

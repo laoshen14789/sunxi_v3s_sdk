@@ -9,6 +9,8 @@
 #include <arpa/inet.h>
 #include <errno.h>
 
+#include <linux/input.h>
+
 //14byte文件头
 typedef struct
 {
@@ -73,6 +75,9 @@ typedef struct
 
 FB_INFO fb_info;
 IMG_INFO img_info;
+
+/* 定义一个input_event变量 存放输入事件信息 */
+static struct input_event inputevent;
 
 int show_bmp(char *bmpname, int x, int y)
 {
@@ -265,7 +270,10 @@ int show_picture(char *img_name, int xpos, int ypos)
 
 int main(int argc, char **argv)
 {
+    char inputDevName[] = "/dev/input/event0";
     char img_name[64];
+    int fd;
+    int ret = 0;
 
     if (argc != 4) {
         printf("please input 4 args:\n");
@@ -286,6 +294,61 @@ int main(int argc, char **argv)
     }
     show_picture(img_name, x, y);
 
+    /* 打开key文件 */
+    fd = open(inputDevName, O_RDWR); // 可读可写
+    if (fd < 0)
+    {
+        printf("can't open file:%s\r\n", inputDevName);
+        goto err_exit;
+    }
+    /* 循环读取按键值 */
+    while (1)
+    {
+        ret = read(fd, &inputevent, sizeof(inputevent));
+        if (ret > 0)
+        { /* 数据有效   */
+            switch (inputevent.type)
+            { // 判断事件的类型
+            case EV_KEY:
+                if (inputevent.code < BTN_MISC)
+                {   // 是键盘键值
+                    // 输入按键代码 并且判断按键是按下还是松开
+                    printf("key %d %s \r\n",
+                           inputevent.code,
+                           inputevent.value ? "press" : "release");
+                }
+                else
+                {
+                    // 输入按键代码 并且判断按键是按下还是松开
+                    printf("button %d %s \r\n",
+                           inputevent.code,
+                           inputevent.value ? "press" : "release");
+                }
+                break;
+            /* 其他类型事件 根据需要自行处理 */
+            case EV_REL:
+                break;
+            case EV_ABS:
+                break;
+            case EV_MSC:
+                break;
+            case EV_SW:
+                break;
+            }
+        }
+        else
+        { // 数据无效
+            printf("read data error\r\n");
+        }
+    }
+
+    /* 关闭文件 */
+    ret = close(fd);
+    if (ret < 0)
+    {
+        printf("can't close file %s \r\n", inputDevName);
+    }
+err_exit:
     /***********************第六步：关闭文件************************/
     close(fb_info.fbfd);
 

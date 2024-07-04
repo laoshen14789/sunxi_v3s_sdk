@@ -249,22 +249,22 @@
 	compatible = "allwinner,sun8i-a83t-r-lradc";
 	keyStart@0 {
 		channel = <0>;
-		voltage = <750>; // 750 550 350 150
+		voltage = <750000>; // 750 550 350 150
 		linux,code = <KEY_1>;
 	};
 	keySel@1 {
 		channel = <0>;
-		voltage = <550>; //550 350 150
+		voltage = <550000>; //550 350 150
 		linux,code = <KEY_2>;
 	};
 	keyPlus@2 {
 		channel = <0>;
-		voltage = <350>; //550 350 150
+		voltage = <350000>; //550 350 150
 		linux,code = <KEY_3>;
 	};
 	keySub@3 {
 		channel = <0>;
-		voltage = <150>; //550 350 150
+		voltage = <150000>; //550 350 150
 		linux,code = <KEY_4>;
 	};
 };
