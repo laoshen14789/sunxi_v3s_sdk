@@ -246,25 +246,26 @@
 
 &lradc {
 	status = "okay";
-	compatible = "allwinner,sun8i-a83t-r-lradc";
+	compatible = "allwinner,sun4i-a10-lradc-keys";
+	vref-supply = <&reg_vcc3v0>;
 	keyStart@0 {
 		channel = <0>;
-		voltage = <750>; // 750 550 350 150
+		voltage = <1269841>; // 750 550 350 150
 		linux,code = <KEY_1>;
 	};
 	keySel@1 {
 		channel = <0>;
-		voltage = <550>; //550 350 150
+		voltage = <1111111>; //550 350 150
 		linux,code = <KEY_2>;
 	};
 	keyPlus@2 {
 		channel = <0>;
-		voltage = <350>; //550 350 150
+		voltage = <730158>; //550 350 150
 		linux,code = <KEY_3>;
 	};
 	keySub@3 {
 		channel = <0>;
-		voltage = <150>; //550 350 150
+		voltage = <317460>; //550 350 150
 		linux,code = <KEY_4>;
 	};
 };

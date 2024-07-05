@@ -111,12 +111,13 @@ static irqreturn_t sun4i_lradc_irq(int irq, void *dev_id)
 	if ((ints & CHAN0_KEYDOWN_IRQ) && lradc->chan0_keycode == 0) {
 		val = readl(lradc->base + LRADC_DATA0) & 0x3f;
 		voltage = val * lradc->vref / 63;
-
+		// dev_err(lradc->dev, "val:%u lradc->vref:%u voltage:%u\n", val, lradc->vref, voltage);
 		for (i = 0; i < lradc->chan0_map_count; i++) {
 			diff = abs(lradc->chan0_map[i].voltage - voltage);
 			if (diff < closest) {
 				closest = diff;
 				keycode = lradc->chan0_map[i].keycode;
+				// dev_err(lradc->dev, "diff:%u closest:%u\n", diff, closest);
 			}
 		}
 
@@ -143,6 +144,8 @@ static int sun4i_lradc_open(struct input_dev *dev)
 	lradc->vref = regulator_get_voltage(lradc->vref_supply) *
 		      lradc->variant->divisor_numerator /
 		      lradc->variant->divisor_denominator;
+	// dev_err(lradc->dev, "regulator_get_voltage:%u lradc->variant->divisor_numerator:%u lradc->variant->divisor_denominator:%u lradc->vref:%u\n",
+	// 		regulator_get_voltage(lradc->vref_supply), lradc->variant->divisor_numerator, lradc->variant->divisor_denominator, lradc->vref);
 	/*
 	 * Set sample time to 4 ms / 250 Hz. Wait 2 * 4 ms for key to
 	 * stabilize on press, wait (1 + 1) * 4 ms for key release

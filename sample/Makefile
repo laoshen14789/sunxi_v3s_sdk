@@ -1,5 +1,5 @@
 # 定义编译器
-CROSS_COMPILER=arm-linux-
+CROSS_COMPILER=../toolchain/bin/arm-linux-
 CC=$(CROSS_COMPILER)gcc
 STRIP=$(CROSS_COMPILER)strip
 
