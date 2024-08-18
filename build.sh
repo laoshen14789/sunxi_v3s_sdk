@@ -6,7 +6,7 @@ rootdir=`pwd`
 toolchain=$rootdir/toolchain/bin
 uboot_src=$rootdir/uboot-2021.10
 kernel_src=$rootdir/linux-5.15.4
-buildroot=$rootdir/buildroot
+buildroot=$rootdir/buildroot-2021.11.x
 
 if [ ! -d $rootdir/output ];then
     mkdir $rootdir/output
@@ -48,13 +48,13 @@ build_kernel () {
 
 build_rootfs () {
     echo "build_rootfs"
-    # echo "enter $buildroot"
-    # cp $uboot_src/configs/sunxi_v3s_nand_deconfig uboot-2021.10/.config
-    # cd $buildroot
-    # make ARCH=arm CROSS_COMPILE=$toolchain/arm-linux- -j
-    # echo "exit $buildroot"
-    # cd $rootdir
-
+    echo "enter $buildroot"
+    cp $buildroot/configs/lcpi_sunxi_v3s_deconfig $buildroot/.config
+    cd $buildroot
+    make $arg1
+    echo "exit $buildroot"
+    cd $rootdir
+    cp $buildroot/output/images/* $rootdir/output/
 }
 
 build_driver () {
@@ -72,10 +72,10 @@ clean_all () {
     make distclean
     cd $rootdir
 
-    # echo "clean builfroot"
-    # cd $buildroot
-    # make distclean
-    # cd $rootdir
+    echo "clean builfroot"
+    cd $buildroot
+    make distclean
+    cd $rootdir
 }
 
 case $command in
